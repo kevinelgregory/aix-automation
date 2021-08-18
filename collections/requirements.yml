@@ -1,5 +1,0 @@
----
-collections:
-  - name: ansible-power-aix
-    source: https://github.com/IBM/ansible-power-aix.git
-    type: git
