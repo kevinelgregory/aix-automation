@@ -1,0 +1,19 @@
+---
+# There is no pre-defined playbook for using the nim_suma module (unlike the suma module).
+# This playbook as written would likely fail, and is only meant to demonstrate the available parameters.
+- name: Download/Install fixes, SP or TL from IBM Fix Central website (to a NIM server)
+  hosts: all
+  vars:
+    download_dir: /tmp/foo
+    download_only: false
+  tasks:
+
+  - name: Download updates
+    ibm.power_aix.nim_suma:
+      action: download
+      targets: ALL
+      oslevel: Latest
+      lpp_source_name: foo_package
+      extend_fs: true
+      description: "This is a description"
+      metadata: /vat/tmp/foo

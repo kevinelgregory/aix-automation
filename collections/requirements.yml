@@ -1,0 +1,4 @@
+---
+collections:
+  - name: ibm.power_aix
+    source: https://galaxy.ansible.com/ibm/power_aix

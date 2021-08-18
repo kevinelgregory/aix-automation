@@ -1,0 +1,48 @@
+---
+- name: Manage system/config files using various modules
+  hosts: all
+  gather_facts: true
+  become: true
+  # By default, Ansible uses the local user on the managed node to execute code.
+  # If this user is not privileged, "become: true" elevates the user to a privileged user.
+  # Whether this parameter is required depends on where and how to node is being managed.
+
+#  vars_files:
+
+#  pre_tasks:
+  
+#  roles:
+#    - role: role_a
+#      when: some-condition
+#    - role: role_b
+#      when: some-condition
+
+  tasks:
+    - name: Manage a file's attributes using the file module
+      ansible.builtin.file:
+        path: /etc/ssh/sshd_config
+        owner: root
+        group: wheel
+        mode: '0640'
+    - name: Edit a file's contents using the lineinfile module
+      ansible.builtin.lineinfile:
+        path: /etc/shells
+        regexp: '^/bin/csh'
+        line: '#/bin.csh'
+    - name: Push a standard file to multiple nodes using the copy module
+      ansible.builtin.copy:
+        src: motd # (see files/motd)
+        dest: /etc/motd
+    # Files referenced by copy should reside in the "files" directory, but can use any explicit path.
+    # EX: instead of just "file1", the file can be referenced as "files/file1", or any other valid path.
+    - name: Push a standard file with varying data to multiple nodes using the template module
+      ansible.builtin.template:
+        src: ntp.conf.j2 # (see templates/ntp.conf.j2)
+        dest: /etc/ntp.conf
+    # Files referenced by template should reside in the "templates" directory. Using other explicit paths is NOT recommended.
+    # Templates substitute text for Ansible variables or Jinja2 code, enabling standard files with custom, variable data.
+
+#    - debug:
+#        msg: "Done"
+
+#  post_tasks:
