@@ -28,7 +28,7 @@
       ansible.builtin.lineinfile:
         path: /etc/shells
         regexp: '^/bin/csh'
-        line: '#/bin.csh'
+        line: '#/bin/csh'
     - name: Push a standard file to multiple nodes using the copy module
       ansible.builtin.copy:
         src: motd # (see files/motd)
